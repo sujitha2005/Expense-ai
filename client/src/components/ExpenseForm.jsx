@@ -14,9 +14,7 @@ export default function ExpenseForm({ fetchExpenses }) {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState(getLocalDate());
-  const [category, setCategory] = useState("Food");
-
-  const categories = ["Food", "Transport", "Entertainment", "Bills", "Health", "Education", "Other"];
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,13 +24,11 @@ export default function ExpenseForm({ fetchExpenses }) {
         title,
         amount: Number(amount),
         date,
-        category,
       });
 
       setTitle("");
       setAmount("");
       setDate(getLocalDate());
-      setCategory("Food");
       if (fetchExpenses) fetchExpenses();
     } catch (error) {
       console.error("Error adding expense:", error);
@@ -79,20 +75,7 @@ export default function ExpenseForm({ fetchExpenses }) {
             />
           </div>
 
-          <div className="form-group">
-            <label className="form-label">Category</label>
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="form-select"
-            >
-              {categories.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
-          </div>
+          {/* Category will be auto-detected by the server AI; no manual input */}
         </div>
 
         <button type="submit" className="submit-btn">
