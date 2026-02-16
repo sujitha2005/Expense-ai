@@ -1,0 +1,38 @@
+.settings-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.settings-card {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  max-width: 500px;
+}
+
+.settings-item {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-item label {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.settings-item button {
+  padding: 8px 12px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  width: 120px;
+}
+
+.settings-item select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}

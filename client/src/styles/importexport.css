@@ -1,0 +1,163 @@
+/* Import/Export Page */
+.import-export-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.page-header {
+    margin-bottom: 2rem;
+}
+
+.page-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 0.5rem 0;
+}
+
+.page-subtitle {
+    color: #6b7280;
+    font-size: 1rem;
+}
+
+/* Cards */
+.function-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    margin-bottom: 2rem;
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 1rem;
+}
+
+.card-description {
+    color: #4b5563;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.code-snippet {
+    background-color: #f3f4f6;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.85em;
+    color: #374151;
+}
+
+/* File Upload */
+.file-upload-wrapper {
+    margin-top: 1rem;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #4b5563;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.file-label:hover {
+    background-color: #374151;
+}
+
+/* Filename Badge */
+.file-info-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #f3f4f6;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid #e5e7eb;
+}
+
+.file-name {
+    font-size: 0.875rem;
+    color: #374151;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.remove-file-btn {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    color: #ef4444;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-file-btn:hover {
+    color: #dc2626;
+}
+
+/* Export Buttons */
+.export-buttons-container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.export-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: white;
+}
+
+.btn-csv {
+    background-color: #10b981;
+}
+
+.btn-csv:hover {
+    background-color: #059669;
+}
+
+.btn-pdf {
+    background-color: #4b5563;
+}
+
+.btn-pdf:hover {
+    background-color: #374151;
+}
+
+.export-info {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-style: italic;
+}

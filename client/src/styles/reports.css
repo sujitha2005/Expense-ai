@@ -1,0 +1,142 @@
+/* Reports Page Layout */
+.reports-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.reports-header {
+  margin-bottom: 2rem;
+}
+
+.reports-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+@media (min-width: 992px) {
+  .reports-grid {
+    grid-template-columns: 1fr 1fr;
+    /* Two columns for charts on desktop */
+  }
+}
+
+/* Card Styling */
+.reports-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  height: 100%;
+}
+
+.chart-container {
+  /* Ensure charts fit nicely */
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Category Breakdown */
+.breakdown-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.breakdown-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 2rem;
+}
+
+.breakdown-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.breakdown-item:last-child {
+  margin-bottom: 0;
+}
+
+.item-label {
+  width: 150px;
+  /* Fixed width for labels */
+  font-weight: 500;
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+.progress-container {
+  flex: 1;
+  height: 10px;
+  background-color: #e5e7eb;
+  border-radius: 9999px;
+  margin: 0 1.5rem;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.5s ease-out;
+}
+
+.item-stats {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  min-width: 160px;
+  justify-content: flex-end;
+}
+
+.item-amount {
+  font-weight: 700;
+  color: #1f2937;
+  font-size: 0.95rem;
+}
+
+.item-percentage {
+  color: #6b7280;
+  font-size: 0.875rem;
+  width: 45px;
+  text-align: right;
+}
+
+/* Specific Progress Bar Colors matching badges */
+.progress-food {
+  background-color: #16a34a;
+}
+
+.progress-transport {
+  background-color: #06b6d4;
+}
+
+.progress-entertainment {
+  background-color: #a855f7;
+}
+
+.progress-bills {
+  background-color: #eab308;
+}
+
+.progress-health {
+  background-color: #10b981;
+}
+
+.progress-education {
+  background-color: #f97316;
+}
+
+.progress-other {
+  background-color: #6b7280;
+}
