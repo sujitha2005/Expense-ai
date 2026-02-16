@@ -96,7 +96,7 @@ export default function AuthPage() {
                         </div>
                     </div>
 
-                    <div className="input-group">
+                    <div className= "input-group">
                         <label>Password</label>
                         <div className="input-wrapper">
                             <Lock size={18} className="input-icon" />

@@ -20,6 +20,7 @@ export const ExpenseProvider = ({ children }) => {
       return res.data;
     } catch (error) {
       console.error("Error adding expense in context:", error);
+      console.log("Expense data that caused error:", expenseData);
       throw error;
     }
   };
