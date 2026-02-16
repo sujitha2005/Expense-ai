@@ -4,6 +4,23 @@ import Expense from "../models/Expense.js";
 import { categorizeExpense } from "../utils/aiCategorizer.js";
 
 
+// 🤖 Categorize Expense (AI prediction)
+export const categorizeExpensePreview = async (req, res) => {
+  try {
+    const { title } = req.body;
+
+    if (!title) {
+      return res.status(400).json({ message: "Title is required" });
+    }
+
+    const category = await categorizeExpense(title);
+    res.json({ category });
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // ➕ Add Expense
 export const addExpense = async (req, res) => {
   try {

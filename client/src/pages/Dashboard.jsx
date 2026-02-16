@@ -6,16 +6,7 @@ import { TrendingUp, Calendar, DollarSign, ListTodo, Trash2 } from "lucide-react
 import toast from "react-hot-toast";
 import "../styles/dashboard.css";
 
-const CATEGORY_COLORS = {
-  Food: "#16a34a",
-  Transport: "#06b6d4",
-  Shopping: "#ec4899",
-  Bills: "#eab308",
-  Entertainment: "#a855f7",
-  Health: "#10b981",
-  Education: "#f97316",
-  Other: "#6b7280"
-};
+  // CATEGORY_COLORS kept for charts, but category column removed from recent list
 
 export default function Dashboard() {
   const { expenses, fetchExpenses, deleteExpense } = useExpenses();
@@ -135,7 +126,6 @@ export default function Dashboard() {
                     <thead>
                       <tr>
                         <th>TITLE</th>
-                        <th>CATEGORY</th>
                         <th>AMOUNT</th>
                         <th>DATE</th>
                         <th style={{ width: '40px' }}></th>
@@ -145,14 +135,6 @@ export default function Dashboard() {
                       {recentGrouped[month].map((exp) => (
                         <tr key={exp._id || exp.id || Math.random()}>
                           <td className="title-cell">{exp.title}</td>
-                          <td>
-                            <span
-                              className="category-badge"
-                              style={{ backgroundColor: CATEGORY_COLORS[exp.category] || "#6b7280" }}
-                            >
-                              {exp.category}
-                            </span>
-                          </td>
                           <td className="amount-cell">₹ {exp.amount.toLocaleString()}</td>
                           <td className="date-cell">
                             {new Date(exp.date).toLocaleDateString("en-IN", {

@@ -68,23 +68,18 @@ export default function RecentEntries({
         <div className="table-container">
             <table className="entries-table">
                 <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Category</th>
-                        <th className="amount-cell">Amount</th>
-                        <th className="date-cell">Date</th>
-                        {showDelete && <th style={{ width: '50px' }}></th>}
-                    </tr>
+                            <tr>
+                            <th>Title</th>
+                            <th className="amount-cell">Amount</th>
+                            <th className="date-cell">Date</th>
+                            {showDelete && <th style={{ width: '50px' }}></th>}
+                        </tr>
                 </thead>
                 <tbody>
                     {entries.map((expense) => (
                         <tr key={expense._id || expense.id || Math.random()}>
                             <td>{expense.title}</td>
-                            <td>
-                                <span className={`category-badge ${getCategoryColor(expense.category)}`}>
-                                    {expense.category || "Uncategorized"}
-                                </span>
-                            </td>
+                            {/* category hidden in UI; auto-detected by server */}
                             <td className="amount-cell">
                                 <span className="amount-text">{formatCurrency(expense.amount)}</span>
                             </td>

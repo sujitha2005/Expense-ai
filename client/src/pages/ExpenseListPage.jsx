@@ -9,7 +9,6 @@ import "../styles/addexpense.css"; // Reusing badge styles
 export default function ExpenseListPage() {
   const { expenses, fetchExpenses, deleteExpense } = useExpenses();
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedMonth, setSelectedMonth] = useState("All");
 
   const handleDelete = async (id) => {
@@ -26,7 +25,7 @@ export default function ExpenseListPage() {
     }
   };
 
-  const categories = ["All", "Food", "Transport", "Entertainment", "Bills", "Health", "Education", "Other"];
+ 
 
   useEffect(() => {
     fetchExpenses();
@@ -42,7 +41,7 @@ export default function ExpenseListPage() {
 
   const filteredExpenses = expenses.filter((expense) => {
     const matchesSearch = expense.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === "All" || expense.category === selectedCategory;
+    const matchesCategory = true; // category filtering removed; AI auto-detects on server
 
     const expenseMonth = new Date(expense.date).toLocaleString("default", { month: "long", year: "numeric" });
     const matchesMonth = selectedMonth === "All" || expenseMonth === selectedMonth;
@@ -60,17 +59,7 @@ export default function ExpenseListPage() {
   }, {});
 
   // Helper reuse from RecentEntries (could be utility but inline for now)
-  const getCategoryColor = (category) => {
-    switch (category) {
-      case "Food": return "badge-food";
-      case "Transport": return "badge-transport";
-      case "Entertainment": return "badge-entertainment";
-      case "Bills": return "badge-bills";
-      case "Health": return "badge-health";
-      case "Education": return "badge-education";
-      default: return "badge-other";
-    }
-  };
+  // Category is auto-detected on the server; UI listing hides category column
 
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat("en-IN", {
@@ -117,19 +106,7 @@ export default function ExpenseListPage() {
           </select>
         </div>
 
-        <div className="filter-wrapper">
-          <Filter size={18} className="filter-icon" style={{ left: "1rem", zIndex: 1 }} />
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className="filter-select"
-            style={{ paddingLeft: "2.5rem" }}
-          >
-            {categories.map(cat => (
-              <option key={cat} value={cat}>{cat === "All" ? "All Categories" : cat}</option>
-            ))}
-          </select>
-        </div>
+        {/* Category filter removed — categories are auto-detected by server AI */}
       </div>
 
       <div className="expense-list-card">
@@ -156,7 +133,6 @@ export default function ExpenseListPage() {
                     <thead>
                       <tr>
                         <th className="col-title">TITLE</th>
-                        <th>CATEGORY</th>
                         <th className="col-amount">AMOUNT</th>
                         <th className="col-date">DATE</th>
                         <th style={{ width: '50px' }}></th>
@@ -166,11 +142,6 @@ export default function ExpenseListPage() {
                       {groupedExpenses[month].map((expense) => (
                         <tr key={expense._id || expense.id || Math.random()}>
                           <td className="col-title">{expense.title}</td>
-                          <td>
-                            <span className={`category-badge ${getCategoryColor(expense.category)}`}>
-                              {expense.category || "Uncategorized"}
-                            </span>
-                          </td>
                           <td className="col-amount">{formatCurrency(expense.amount)}</td>
                           <td className="col-date">
                             {new Date(expense.date).toLocaleDateString("en-IN", {

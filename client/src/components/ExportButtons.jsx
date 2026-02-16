@@ -15,14 +15,13 @@ export default function ExportButtons({ expenses = [] }) {
 
     let yPos = 40;
 
-    // Headers
+    // Headers (category hidden from exports per UI policy)
     doc.setFillColor(240, 240, 240);
     doc.rect(14, yPos - 5, 182, 10, "F");
     doc.setFont(undefined, "bold");
     doc.text("Title", 16, yPos);
-    doc.text("Category", 80, yPos);
-    doc.text("Date", 120, yPos);
-    doc.text("Amount", 170, yPos);
+    doc.text("Date", 100, yPos);
+    doc.text("Amount", 160, yPos);
     yPos += 10;
     doc.setFont(undefined, "normal");
 
@@ -33,11 +32,10 @@ export default function ExportButtons({ expenses = [] }) {
         yPos = 20;
       }
 
-      const title = exp.title.length > 25 ? exp.title.substring(0, 22) + "..." : exp.title;
+      const title = exp.title.length > 30 ? exp.title.substring(0, 27) + "..." : exp.title;
       doc.text(title, 16, yPos);
-      doc.text(exp.category || "-", 80, yPos);
-      doc.text(new Date(exp.date).toLocaleDateString(), 120, yPos);
-      doc.text(`Rs. ${exp.amount}`, 170, yPos);
+      doc.text(new Date(exp.date).toLocaleDateString(), 100, yPos);
+      doc.text(`Rs. ${exp.amount}`, 160, yPos);
 
       yPos += 10;
     });
@@ -53,9 +51,8 @@ export default function ExportButtons({ expenses = [] }) {
     // Format data for CSV
     const csvData = expenses.map(exp => ({
       Title: exp.title,
-      Amount: exp.amount,
       Date: new Date(exp.date).toISOString().split('T')[0],
-      Category: exp.category
+      Amount: exp.amount
     }));
 
     const csv = Papa.unparse(csvData);

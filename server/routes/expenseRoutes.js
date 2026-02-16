@@ -3,13 +3,17 @@ import {
   addExpense,
   getExpenses,
   deleteExpense,
-  updateExpense
+  updateExpense,
+  categorizeExpensePreview
 } from "../controllers/expenseController.js";
 import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
 router.use(protect);
+
+// 🤖 Categorize (AI preview)
+router.post("/categorize", categorizeExpensePreview);
 
 // ➕ Create expense
 router.post("/", addExpense);

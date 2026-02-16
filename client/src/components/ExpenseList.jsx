@@ -18,7 +18,6 @@ export default function ExpenseList({ expenses, refreshExpenses }) {
         <div key={exp._id} className="expense-row">
           <span>{exp.title}</span>
           <span>₹{exp.amount}</span>
-          <span>{exp.category}</span>
 
           <div>
             <button
