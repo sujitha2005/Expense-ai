@@ -243,3 +243,29 @@
   background-color: #f3f4f6;
   color: #4b5563;
 }
+
+/* Recent Entries Scroll Area */
+.recent-entries-scroll-area {
+  max-height: 450px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.recent-entries-scroll-area::-webkit-scrollbar {
+  width: 6px;
+}
+
+.recent-entries-scroll-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.recent-entries-scroll-area::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 20px;
+  border: 3px solid transparent;
+}
+
+.recent-entries-scroll-area::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8;
+}

@@ -15,12 +15,12 @@ const VALID_CATEGORIES = [
 // Fallback keyword-based categorizer if API fails
 const keywordCategorize = (title) => {
   const keywords = {
-    Food: ["food", "restaurant", "cafe", "pizza", "burger", "lunch", "dinner", "breakfast", "coffee", "tea", "meal", "snack", "grocery", "supermarket"],
-    Travel: ["uber", "taxi", "flight", "hotel", "bus", "train", "car", "gas", "parking", "airplane", "travel"],
-    Rent: ["rent", "lease", "mortgage", "landlord"],
-    Shopping: ["shop", "store", "mall", "amazon", "online", "clothes", "apparel", "book", "gift", "buy"],
-    Utilities: ["electric", "water", "gas", "internet", "phone", "bill", "utility"],
-    Entertainment: ["movie", "cinema", "concert", "theater", "game", "music", "spotify", "netflix", "show", "entertainment"],
+    Food: ["food", "restaurant", "cafe", "pizza", "burger", "lunch", "dinner", "breakfast", "coffee", "tea", "meal", "snack", "grocery", "supermarket", "vegetable", "fruit", "produce", "eat", "chicken", "rice", "bread", "milk", "egg", "fish", "chocolate", "sweet", "dessert", "pastry", "restaurant", "donut", "cake", "biscuit", "cookie", "juice", "drink", "beverage", "soup", "noodle", "pasta"],
+    Travel: ["uber", "taxi", "flight", "hotel", "bus", "train", "car", "gas", "parking", "airplane", "travel", "ride", "transport", "commute"],
+    Rent: ["rent", "lease", "mortgage", "landlord", "apartment", "house"],
+    Shopping: ["shop", "store", "mall", "amazon", "online", "clothes", "apparel", "book", "gift", "buy", "dress", "shirt", "pants", "shoe", "shoes", "jacket", "purchase"],
+    Utilities: ["electric", "water", "gas", "internet", "phone", "bill", "utility", "electricity", "broadband"],
+    Entertainment: ["movie", "cinema", "concert", "theater", "game", "music", "spotify", "netflix", "show", "entertainment", "ticket", "play", "film"],
   };
 
   const lowerTitle = title.toLowerCase();
@@ -36,12 +36,12 @@ const keywordCategorize = (title) => {
 
 export const categorizeExpense = async (title) => {
   try {
-    if (!process.env.GEMINI_API_KEY) {
-      console.log("GEMINI_API_KEY not found, using fallback categorizer");
+    if (!process.env.GEMINI_KEY) {
+      console.log("GEMINI_KEY not found, using fallback categorizer");
       return keywordCategorize(title);
     }
 
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
     const prompt = `Classify this expense into ONE of these categories: Food, Travel, Rent, Shopping, Utilities, Entertainment, Other. Expense: "${title}". Respond with ONLY the category word.`;

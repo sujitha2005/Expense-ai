@@ -42,7 +42,13 @@ export const AuthProvider = ({ children }) => {
             toast.success("Account created successfully!");
             return res.data;
         } catch (error) {
-            toast.error(error.response?.data?.message || "Registration failed");
+            console.error("Registration error details:", {
+                status: error.response?.status,
+                message: error.response?.data?.message,
+                data: error.response?.data,
+                errorMsg: error.message
+            });
+            toast.error(error.response?.data?.message || error.message || "Registration failed");
             throw error;
         }
     };

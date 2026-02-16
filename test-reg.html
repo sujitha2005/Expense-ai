@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Test</title>
+</head>
+<body>
+    <h1>Registration Test</h1>
+    <button onclick="testReg()">Test Registration</button>
+    <pre id="output"></pre>
+    
+    <script>
+        async function testReg() {
+            const output = document.getElementById('output');
+            try {
+                output.textContent = 'Testing...';
+                const response = await fetch('http://localhost:5000/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: 'Test User',
+                        email: 'testuser' + Date.now() + '@example.com',
+                        password: 'password123'
+                    })
+                });
+                
+                const data = await response.json();
+                output.textContent = 'Status: ' + response.status + '\n\n' + JSON.stringify(data, null, 2);
+            } catch (error) {
+                output.textContent = 'Error: ' + error.toString();
+            }
+        }
+    </script>
+</body>
+</html>

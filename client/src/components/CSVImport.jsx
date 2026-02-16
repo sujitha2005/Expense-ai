@@ -23,14 +23,13 @@ export default function CSVImport({ refreshExpenses }) {
                     const title = row.title || row.Title || row.TITLE;
                     const amount = row.amount || row.Amount || row.AMOUNT;
                     const date = row.date || row.Date || row.DATE || new Date().toISOString().split('T')[0];
-                    const category = row.category || row.Category || row.CATEGORY || "Other";
 
                     if (title && amount) {
                         const expenseData = {
                             title,
                             amount: Number(amount),
-                            date,
-                            category
+                            date
+                            // Category will be auto-detected by server AI
                         };
 
                         // Add to DB

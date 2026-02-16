@@ -60,7 +60,7 @@ export default function ImportExport() {
           Import CSV
         </h2>
         <p className="card-description">
-          Upload a CSV file with columns: <span className="code-snippet">title, amount, date, category</span>
+          Upload a CSV file with columns: <span className="code-snippet">title, amount, date</span> (category is auto-detected)
         </p>
         <div style={{ display: 'flex', alignItems: 'center', gap: '15px', flexWrap: 'wrap' }}>
           <CSVImport refreshExpenses={handleImportSuccess} />

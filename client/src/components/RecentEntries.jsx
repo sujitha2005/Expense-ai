@@ -5,7 +5,7 @@ import { useExpenses } from "../context/ExpenseContext";
 export default function RecentEntries({
     expenses = [],
     title = "Recent Entries",
-    limit = 5,
+    limit = 50,
     showGrouping = true,
     showDelete = true
 }) {
@@ -29,7 +29,7 @@ export default function RecentEntries({
 
     const handleDelete = async (id) => {
         if (!id) {
-            toast.error("No ID found for this entry");
+            console.error("No ID found for this entry");
             return;
         }
         if (window.confirm("Are you sure you want to delete this expense?")) {
@@ -37,13 +37,13 @@ export default function RecentEntries({
                 await deleteExpense(id);
             } catch (error) {
                 console.error("Error deleting expense:", error);
-                // toast is handled by context
             }
         }
     };
 
-    // Get entries based on limit
-    const recentExpenses = limit ? expenses.slice(0, limit) : expenses;
+    // Sort expenses by date (newest first) and get entries based on limit
+    const sortedExpenses = [...expenses].sort((a, b) => new Date(b.date) - new Date(a.date));
+    const recentExpenses = limit ? sortedExpenses.slice(0, limit) : sortedExpenses;
 
     const getCategoryColor = (category) => {
         switch (category) {
@@ -64,22 +64,32 @@ export default function RecentEntries({
         return acc;
     }, {});
 
+    // Sort entries within each month by date (newest first)
+    Object.keys(groupedExpenses).forEach(month => {
+        groupedExpenses[month].sort((a, b) => new Date(b.date) - new Date(a.date));
+    });
+
     const renderTable = (entries) => (
         <div className="table-container">
             <table className="entries-table">
                 <thead>
-                            <tr>
-                            <th>Title</th>
-                            <th className="amount-cell">Amount</th>
-                            <th className="date-cell">Date</th>
-                            {showDelete && <th style={{ width: '50px' }}></th>}
-                        </tr>
+                    <tr>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th className="amount-cell">Amount</th>
+                        <th className="date-cell">Date</th>
+                        {showDelete && <th style={{ width: '50px' }}></th>}
+                    </tr>
                 </thead>
                 <tbody>
                     {entries.map((expense) => (
                         <tr key={expense._id || expense.id || Math.random()}>
                             <td>{expense.title}</td>
-                            {/* category hidden in UI; auto-detected by server */}
+                            <td>
+                                <span className={`category-badge ${getCategoryColor(expense.category)}`}>
+                                    {expense.category || "Uncategorized"}
+                                </span>
+                            </td>
                             <td className="amount-cell">
                                 <span className="amount-text">{formatCurrency(expense.amount)}</span>
                             </td>
@@ -122,40 +132,42 @@ export default function RecentEntries({
                     Total: {formatCurrency(recentExpenses.reduce((sum, exp) => sum + exp.amount, 0))}
                 </div>
             </div>
-            {recentExpenses.length > 0 ? (
-                showGrouping ? (
-                    Object.keys(groupedExpenses).sort((a, b) => new Date(b) - new Date(a)).map(month => {
-                        const monthTotal = groupedExpenses[month].reduce((sum, exp) => sum + exp.amount, 0);
-                        return (
-                            <div key={month} className="month-group-container" style={{ marginBottom: '2rem' }}>
-                                <div className="month-group-header" style={{
-                                    padding: '0.75rem 1rem',
-                                    background: '#f8fafc',
-                                    borderBottom: '1px solid #e2e8f0',
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center'
-                                }}>
-                                    <h3 className="month-group-title" style={{
-                                        fontSize: '1rem',
-                                        color: '#475569',
-                                        fontWeight: '600',
-                                        margin: 0
-                                    }}>{month}</h3>
-                                    <span style={{ fontSize: '0.875rem', fontWeight: '600', color: '#64748b' }}>
-                                        {formatCurrency(monthTotal)}
-                                    </span>
+            <div className="recent-entries-scroll-area">
+                {recentExpenses.length > 0 ? (
+                    showGrouping ? (
+                        Object.keys(groupedExpenses).sort((a, b) => new Date(b) - new Date(a)).map(month => {
+                            const monthTotal = groupedExpenses[month].reduce((sum, exp) => sum + exp.amount, 0);
+                            return (
+                                <div key={month} className="month-group-container" style={{ marginBottom: '1.5rem' }}>
+                                    <div className="month-group-header" style={{
+                                        padding: '0.75rem 1rem',
+                                        background: '#f8fafc',
+                                        borderBottom: '1px solid #e2e8f0',
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
+                                    }}>
+                                        <h3 className="month-group-title" style={{
+                                            fontSize: '0.875rem',
+                                            color: '#475569',
+                                            fontWeight: '600',
+                                            margin: 0
+                                        }}>{month}</h3>
+                                        <span style={{ fontSize: '0.75rem', fontWeight: '600', color: '#64748b' }}>
+                                            {formatCurrency(monthTotal)}
+                                        </span>
+                                    </div>
+                                    {renderTable(groupedExpenses[month])}
                                 </div>
-                                {renderTable(groupedExpenses[month])}
-                            </div>
-                        );
-                    })
-                ) : renderTable(recentExpenses)
-            ) : (
-                <div className="empty-state" style={{ padding: '2rem', textAlign: 'center', color: '#64748b' }}>
-                    No recent expenses found.
-                </div>
-            )}
+                            );
+                        })
+                    ) : renderTable(recentExpenses)
+                ) : (
+                    <div className="empty-state" style={{ padding: '2rem', textAlign: 'center', color: '#64748b' }}>
+                        No recent expenses found.
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
